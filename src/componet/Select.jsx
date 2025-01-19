@@ -1,8 +1,8 @@
 import React,{useId} from 'react'
 
-const Select = React.forwardRef(function({
+function Select({
     label,
-    options=[],
+    options,
     className="",
     ...props
 }, ref) {
@@ -10,20 +10,20 @@ const Select = React.forwardRef(function({
   return (
     <div className="w-full">
         {label && <label htmlFor={id} >{label}</label>}
-        <Select 
-        id={id} 
-        ref={ref} 
+        <select 
+        id={id}  
         {...props}
+        ref={ref}
         className={`px-3 py-2 rounded-lg bg-white text-black outline-none focus:bg-gray-50 duration-200 border border-gray-200 w-full ${className}`}
         >
             {options?.map((option) => (
-                <option value={option} key={option}>
+                <option key={option} value={option}>
                 {option}
             </option>
             ))}
-        </Select>
+        </select>
     </div>
   )
-})
+}
 
-export default Select
+export default React.forwardRef(Select)

@@ -23,6 +23,7 @@ function PostForm({post}) {
         .trim()
         .toLowerCase()
         .replace(/[^a-zA-Z\d\s]+/g, "-")
+        .replace(/\s/g, "-");
       }
       return ""
     },[])
@@ -37,6 +38,7 @@ function PostForm({post}) {
     },[watch, slugTransform, setValue])
 
     async function postFile(data){
+      console.log(`data in postform : ${data}`)
       if(post){
         const file = data.image[0] ? await service.uploadFile(data.image[0]) : null;
         if(file){
@@ -51,9 +53,10 @@ function PostForm({post}) {
         if(file){
           const fileId = file.$id
           data.featureimg = fileId
-          const dbpost = await service.createPost({...data})
+          const dbpost = await service.createPost({...data, indexId: fileId})
           if(dbpost){
             navigate(`/post/${dbpost.$id}`)
+            console.log(`dbpost : ${dbpost}`)
           }
         }
       }
@@ -103,12 +106,12 @@ function PostForm({post}) {
         </div>
       )}
 
-      {/* <Select
+      <Select
       label="Status"
       options={['active', 'inactive']}
       className='mb-4'
       {...register("status", { required: true })}
-      /> */}
+      />
       <Button className="w-full" bgColor={post ? "bg-green-500" : undefined} type="submit">{post ? "Update" : "Post" }</Button>
       </div>
     </form>

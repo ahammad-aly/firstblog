@@ -19,7 +19,7 @@ function Login() {
             if(session) {
                 const userData = await services.getCurrent()
                 console.log(`getCurrent userData here ${userData}`)
-                if(!userData) dispatch(LogIn(userData));
+                if(userData) dispatch(LogIn(userData));
                     navigate("/")
             }
         } catch (error) {

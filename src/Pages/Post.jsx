@@ -6,10 +6,10 @@ import parse from 'html-react-parser'
 import service from '../appwrite/config'
 
 function Post() {
-  const [post, setPost] = useState([])
+  const [post, setPost] = useState(null)
   const {slug} = useParams()
   const navigate = useNavigate()
-  const userD = useSelector((state)=> state.reducer.user)
+  const userD = useSelector((state)=> state.user)
   const isauther = post && userD ? post.indexId === userD.$id : false
   useEffect(()=>{
     if(slug){
@@ -37,7 +37,7 @@ function Post() {
       <Container>
         <div className="w-full p-2 flex justify-center border rounded-xl mb-4 relative">
           <img
-          src={service.filePreview(post.featureImage)}
+          src={service.filePreview(post.featureimg)}
           alt={post.title}
           className="rounded-xl"
           />
@@ -54,8 +54,8 @@ function Post() {
         <div className="w-full mb-6">
           <h2 className="text-2xl font-bold">{post.title}</h2>
         </div>
-        <div className="brouser-css">
-          {parse(post.content)}
+        <div className="browser-css">
+        {parse(post.content)}
         </div>
       </Container>
     </div>
