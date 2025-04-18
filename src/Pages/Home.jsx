@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import service from '../appwrite/config';
-import { Container, PostCard } from '../componet';
+import React, { useState, useEffect } from "react";
+import service from "../appwrite/config";
+import { Container, PostCard } from "../componet";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -8,7 +8,6 @@ function Home() {
   useEffect(() => {
     service.getPosts().then((posts) => {
       setPosts(posts.documents);
-      console.log(`post document : ${posts.documents}`);
     });
   }, []);
 
@@ -33,9 +32,11 @@ function Home() {
       <Container>
         <div className="flex flex-wrap">
           {posts?.map((post) => {
-            return <div key={post.$id} className='p-2 w-1/4'>
+            return (
+              <div key={post.$id} className="p-2 w-1/4">
                 <PostCard {...post} />
-                </div>;
+              </div>
+            );
           })}
         </div>
       </Container>
